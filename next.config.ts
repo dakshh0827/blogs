@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['lh3.googleusercontent.com'], 
   },
+   experimental: {
+    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
+  },
+  productionBrowserSourceMaps: true,
+  compiler: {
+    removeConsole: false,
+  }
 };
 
 export default nextConfig;
