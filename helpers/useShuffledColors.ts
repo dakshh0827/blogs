@@ -9,21 +9,31 @@ const colorPalette = [
   { bg: 'bg-purple-200', text: 'text-purple-800' }
 ];
 
-export function useShuffledColors(itemCount: number) {
-  const shuffledColors = [];
-  const availableColors = [...colorPalette];
-
-  for (let i = 0; i < itemCount; i++) {
-    if (availableColors.length === 0) {
-      availableColors.push(...colorPalette);
-    }
-
-    const randomIndex = Math.floor(Math.random() * availableColors.length);
-    const selectedColor = availableColors[randomIndex];
-
-    shuffledColors.push(selectedColor);
-    availableColors.splice(randomIndex, 1);
+function simpleHash(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash + char) & 0xffffffff;
   }
+  return Math.abs(hash);
+}
 
-  return shuffledColors;
+export function getDeterministicColors(categories: Array<{ id: string; slug: string; title: string }>) {
+  return categories.map((category, index) => {
+    const hash = simpleHash(category.slug + category.id);
+    const colorIndex = (hash + index) % colorPalette.length;
+    return colorPalette[colorIndex];
+  });
+}
+
+export function getIndexBasedColors(itemCount: number) {
+  const colors = [];
+  for (let i = 0; i < itemCount; i++) {
+    colors.push(colorPalette[i % colorPalette.length]);
+  }
+  return colors;
+}
+
+export function useShuffledColors(itemCount: number) {
+  return getIndexBasedColors(itemCount);
 }

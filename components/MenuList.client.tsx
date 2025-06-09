@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useShuffledColors } from '@/helpers/useShuffledColors';
+import { getDeterministicColors } from '@/helpers/useShuffledColors';
 
 interface Category {
   id: string;
@@ -47,9 +47,10 @@ export default function ClientMenuList({
   popularPostsResults,
   editorsPickResults,
 }: MenuListProps) {
-  const categoryColors = useShuffledColors(allCategories.length);
-  const popularColors = useShuffledColors(topCategories.length);
-  const editorColors = useShuffledColors(topTwoCategories.length);
+  // Use deterministic color assignment instead of random
+  const categoryColors = getDeterministicColors(allCategories);
+  const popularColors = getDeterministicColors(topCategories);
+  const editorColors = getDeterministicColors(topTwoCategories);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -78,7 +79,7 @@ export default function ClientMenuList({
 
             return (
               <Link
-                key={post.id}
+                key={`popular-${post.id}-${category.id}`}
                 className="space-y-2"
                 href={`/posts/${post.slug}`}
               >
@@ -111,7 +112,7 @@ export default function ClientMenuList({
             const colors = categoryColors[index];
             return (
               <Link
-                key={category.id}
+                key={`category-${category.id}`}
                 href={`/blog?cate=${encodeURIComponent(category.slug)}`}
                 className={`flex items-center justify-center px-3 py-2 rounded-sm text-sm font-medium ${colors.bg} ${colors.text} hover:opacity-80`}
               >
@@ -139,7 +140,7 @@ export default function ClientMenuList({
 
             return (
               <Link
-                key={post.id}
+                key={`editor-${post.id}-${category.id}`}
                 className="flex gap-3"
                 href={`/posts/${post.slug}`}
               >
