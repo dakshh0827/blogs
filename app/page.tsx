@@ -17,7 +17,7 @@ const page = ({ searchParams }: PageProps) => {
       <Featured
         image="/featured.jpg"
         title="blogs, how it came to life and what it is all about"
-        description="blogs is a minimalist blogging platform I built in June 2025, during a phase when I was diving deep into Next.js and looking to sharpen my full-stack development skills. As a student of Computer Science and someone who learns best by building, I needed a project that was both practical and meaningful, and that's how blogs came to life. 
+        description="blogs is a blogging platform I built in June 2025, during a phase when I was diving deep into Next.js and looking to sharpen my full-stack development skills. As a student of Computer Science and someone who learns best by building, I needed a project that was both practical and meaningful, and that's how blogs came to life. 
                       — (by the way you'll be thinking what this image is doing in the about section, it's because i like this pic and i took it myselff!)"
         readMoreLink="/about"
       />

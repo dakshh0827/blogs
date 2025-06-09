@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 
-const topContent = `blogs is a minimalist blogging platform I built in June 2025, during a phase when I was diving deep into Next.js and looking to sharpen my full-stack development skills. As a student of Computer Science and someone who learns best by building, I needed a project that was both practical and meaningful, and that's how blogs came to life. 
+const topContent = `blogs is a blogging platform I built in June 2025, during a phase when I was diving deep into Next.js and looking to sharpen my full-stack development skills. As a student of Computer Science and someone who learns best by building, I needed a project that was both practical and meaningful, and that's how blogs came to life. 
  — (by the way you'll be thinking what this image is doing in the about section, it's because i like this pic and i took it myselff!)`
 
 const bottomContent = `I had just started learning the ins and outs of Next.js, particularly its powerful App Router, server-side rendering capabilities, and file-based routing system. While tutorials were helpful, I wanted to take it a step further by building something end-to-end — something real. This app became that space. A platform where users can write, share, and discover thoughts in a clean, distraction-free environment.
