@@ -64,6 +64,7 @@ const SignUpPage: React.FC = () => {
         showError(data.error || 'Registration failed. Please try again.')
       }
     } catch (error) {
+      console.log("error: ", error);
       dismissToast(loadingToast)
       showError('An error occurred during registration. Please try again.')
     } finally {
@@ -120,6 +121,7 @@ const SignUpPage: React.FC = () => {
         showError(data.error || 'Invalid verification code. Please try again.')
       }
     } catch (error) {
+      console.log("error: ", error);
       dismissToast(loadingToast)
       showError('An error occurred during verification. Please try again.')
     } finally {
@@ -149,6 +151,7 @@ const SignUpPage: React.FC = () => {
         showError(data.error || 'Failed to resend verification code. Please try again.')
       }
     } catch (error) {
+      console.log("error: ", error);
       dismissToast(loadingToast)
       showError('An error occurred while resending the code. Please try again.')
     } finally {

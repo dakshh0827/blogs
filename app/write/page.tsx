@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react'
 import { showSuccess, showError, showLoading, dismissToast } from '@/lib/toast'
+import Image from 'next/image'
 
 const TOOLBAR_BUTTONS = [
   { command: 'fontSize', value: '1', label: 'S', className: 'text-xs', title: 'Small', type: 'size' },
@@ -169,9 +170,9 @@ const BlogWritePage: React.FC = () => {
   }
 
   // Handle content changes
-  const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
-    setContent(e.currentTarget.innerHTML)
-  }
+  // const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
+  //   setContent(e.currentTarget.innerHTML)
+  // }
 
   // Handle input events - simplified approach
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
@@ -281,11 +282,11 @@ const BlogWritePage: React.FC = () => {
   }
 
   // Convert HTML content to plain text for description
-  const getPlainTextFromHTML = (html: string) => {
-    const tempDiv = document.createElement('div')
-    tempDiv.innerHTML = html
-    return tempDiv.textContent || tempDiv.innerText || ''
-  }
+  // const getPlainTextFromHTML = (html: string) => {
+  //   const tempDiv = document.createElement('div')
+  //   tempDiv.innerHTML = html
+  //   return tempDiv.textContent || tempDiv.innerText || ''
+  // }
 
   const handleBlogSubmit = async () => {
     // Validation with toast notifications
@@ -358,12 +359,12 @@ const BlogWritePage: React.FC = () => {
   }
 
   // Check if a button should be highlighted
-  const isButtonActive = (btn: any) => {
-    if (btn.type === 'size') {
-      return activeFormats.fontSize === btn.value
-    }
-    return false
+ const isButtonActive = (btn: { type: string; value?: string | number }) => {
+  if (btn.type === 'size' && btn.value !== undefined) {
+    return activeFormats.fontSize === btn.value
   }
+  return false
+}
 
   return (
     <div className="relative mb-2 bg-background">
@@ -472,7 +473,7 @@ const BlogWritePage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {uploadedImages.map((imageUrl, index) => (
                 <div key={index} className="relative group">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={`Uploaded image ${index + 1}`}
                     className="w-full h-48 object-contain rounded-lg border border-border"

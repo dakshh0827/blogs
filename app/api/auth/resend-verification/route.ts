@@ -56,9 +56,14 @@ export async function POST(request: Request) {
       })
 
       console.log("Verification code saved:", saved)
-    } catch (err: any) {
-      console.error("Failed to save verification code:", err.message || err)
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Failed to save verification code:", err.message)
+      } else {
+        console.error("Failed to save verification code:", err)
+      }
     }
+
 
     // Send verification email
     const emailResult = await sendVerificationMail(user.email, user.name, verificationCode)

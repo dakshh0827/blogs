@@ -7,8 +7,7 @@ import { prisma } from './prisma'
 import bcrypt from 'bcryptjs'
 
 // Extend NextAuth types to include 'id' on session.user
-import NextAuth, { DefaultSession, DefaultUser } from "next-auth"
-import { get } from 'http'
+import { DefaultSession, DefaultUser } from "next-auth"
 
 declare module "next-auth" {
   interface Session {

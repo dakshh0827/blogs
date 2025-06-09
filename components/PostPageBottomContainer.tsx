@@ -1,13 +1,6 @@
 import React from 'react'
-import MenuList from './MenuList'
+import MenuList from './MenuList.server'
 import CommentsSection from './CommentsSection'
-
-interface Comment {
-  id: string
-  author: string
-  content: string
-  createdAt: string
-}
 
 interface PostPageBottomContainerProps {
   content: string

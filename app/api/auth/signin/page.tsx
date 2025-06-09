@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useState } from 'react'
-import { signIn, getSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { showSuccess, showError, showLoading, dismissToast } from '@/lib/toast'
 

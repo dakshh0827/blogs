@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import useSWR, { mutate } from 'swr'
+import useSWR from 'swr'
 import { Loader2, Send, User } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'

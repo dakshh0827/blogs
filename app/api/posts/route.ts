@@ -2,31 +2,23 @@ import { getAuthSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-interface GetRequest {
-    url: string;
-}
-
 interface ErrorResponse {
     error: string;
 }
 
-interface BlogPostData {
-  title: string
-  slug: string
-  desc: string
-  content: string
-  catSlug: string
-  img?: string | null
-}
-
-export const GET = async (req: GetRequest): Promise<ReturnType<typeof NextResponse.json>> => {
+export const GET = async (req: Request): Promise<ReturnType<typeof NextResponse.json>> => {
     const { searchParams } = new URL(req.url);
     const page = searchParams.get("page") || "1";
     const cate = searchParams.get("cate") || "";
     const postsPerPage = 4;
+    
     try {
         const [posts, count] = await prisma.$transaction([
-            prisma.post.findMany({take: postsPerPage, skip: (parseInt(page) - 1) * postsPerPage, where: {...(cate && {catSlug: cate})}}),
+            prisma.post.findMany({
+                take: postsPerPage, 
+                skip: (parseInt(page) - 1) * postsPerPage, 
+                where: {...(cate && {catSlug: cate})}
+            }),
             prisma.post.count({where: {...(cate && {catSlug: cate})}})
         ]);
 

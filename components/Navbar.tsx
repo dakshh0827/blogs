@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Moon, Sun, LogOut, User } from 'lucide-react'
+import { Menu, Moon, Sun, LogOut, User } from 'lucide-react'
 import { useTheme } from "next-themes"
 import { useSession, signOut } from "next-auth/react"
 import Image from 'next/image'
@@ -11,7 +11,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet"
 import {
   DropdownMenu,

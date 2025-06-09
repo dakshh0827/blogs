@@ -1,7 +1,6 @@
 import React from 'react'
 import PostPageTopContainer from '@/components/PostPageTopContainer'
 import PostPageBottomContainer from '@/components/PostPageBottomContainer'
-import useSWR from 'swr'
 
 const getData = async (slug: string) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
@@ -16,16 +15,17 @@ const getData = async (slug: string) => {
 }
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-const Page = async ({ params }: PageProps, postSlug: string) => {
-  const { slug } = params;
+const Page = async ({ params }: PageProps) => {
+  const { slug } = await params;
   const post = await getData(slug);
   console.log("post: ", post);
-  console.log("user: ", postSlug);
+  console.log("slug: ", slug);
+  
   return (
     <div>
       <PostPageTopContainer

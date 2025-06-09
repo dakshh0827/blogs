@@ -11,7 +11,7 @@ const ContactPage = () => {
             CONTACT
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Is there something on your mind you'd like to talk about? Whether it's related to work, just a casual conversation or need help with some code. Feel free to contact me at anytime.
+            Is there something on your mind you&#39;d like to talk about? Whether it&#39;s related to work, just a casual conversation or need help with some code. Feel free to contact me at anytime.
           </p>
         </div>
 

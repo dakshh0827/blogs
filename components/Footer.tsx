@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
 
             {/* Description */}
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Heyy you all! This is dakshh, a wannabe developer trying to understand the world of codes. I would not say this was my dream but I enjoy coding. I hope I'll make some good out of it. Thankyou for visiting by, hope you liked it.
+              Heyy you all! This is dakshh, a wannabe developer trying to understand the world of codes. I would not say this was my dream but I enjoy coding. I hope I&apos;ll make some good out of it. Thank you for visiting by, hope you liked it.
             </p>
           </div>
 
