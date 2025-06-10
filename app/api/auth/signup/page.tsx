@@ -350,8 +350,8 @@ const SignUpPage: React.FC = () => {
         </div>
 
         {/* Already have an account? */}
-        <div className="flex justify-center items-center pt-2 text-xs">
-          <a href="/signin" className="text-primary hover:underline">
+        <div className="flex justify-center items-center text-xs">
+          <a href="/api/auth/signin" className="text-primary hover:underline">
             Already have an account? Sign in
           </a>
         </div>

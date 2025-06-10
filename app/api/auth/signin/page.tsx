@@ -154,11 +154,8 @@ const SignInPage: React.FC = () => {
         </div>
 
         {/* Forgot Password / Sign Up */}
-        <div className="flex justify-between items-center pt-2 text-xs">
-          <a href="/forgot-password" className="text-primary hover:underline">
-            Forgot password?
-          </a>
-          <a href="/signup" className="text-primary hover:underline">
+        <div className="flex justify-center items-center text-xs">
+          <a href="/api/auth/signup" className="text-primary hover:underline">
             Don&apos;t have an account? Sign up
           </a>
         </div>
