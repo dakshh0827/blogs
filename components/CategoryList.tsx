@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { getBaseUrl } from '@/lib/api';
 
 interface Category {
   id: string;
@@ -10,15 +11,21 @@ interface Category {
 }
 
 const getData = async (): Promise<Category[]> => {
-  const res = await fetch('http://localhost:3000/api/category', {
-    cache: 'no-store',
-  });
+  try {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/category`, {
+      cache: 'no-store',
+    });
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch categories');
+    if (!res.ok) {
+      throw new Error(`Failed to fetch categories: ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return []; // Return empty array as fallback
   }
-
-  return res.json();
 };
 
 const colorPalette = [
@@ -53,6 +60,19 @@ const CategoryList = async () => {
   const categories: Category[] = await getData();
   const shuffledColors = getShuffledColors(categories.length);
 
+  if (categories.length === 0) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="py-8 md:py-12">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
+            Popular Categories
+          </h1>
+          <p className="text-muted-foreground">Categories are currently unavailable.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="py-8 md:py-12">
@@ -74,6 +94,8 @@ const CategoryList = async () => {
                   <Image
                     src={item.img}
                     alt={item.title}
+                    width={24}
+                    height={24}
                     className="w-6 h-6"
                   />
                 )}

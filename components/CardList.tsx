@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Pagination from './Pagination'
+import { getBaseUrl } from '@/lib/api';
 
 // Define the Post interface based on your Prisma model
 interface Post {
@@ -35,26 +36,45 @@ interface GetDataResponse {
   count: number;
 }
 
-const getData = async (page: number, cate : string): Promise<GetDataResponse> => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}&cate=${cate || ""}`, {
-    cache: 'no-store'
-  });
+const getData = async (page: number, cate: string): Promise<GetDataResponse> => {
+  try {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ""}`, {
+      cache: 'no-store'
+    });
 
-  if (!res.ok) {
-    console.log(res);
-    throw new Error('Failed to fetch posts');
+    if (!res.ok) {
+      console.error('Failed to fetch posts:', res.status, res.statusText);
+      throw new Error(`Failed to fetch posts: ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('Error in getData:', error);
+    return { posts: [], count: 0 };
   }
-
-  return res.json();
 }
 
-const CardList: React.FC<CardListProps> = async ( {page, cate} ) => {
+const CardList: React.FC<CardListProps> = async ({ page, cate }) => {
   const { posts, count } = await getData(page, cate);
 
   const postsPerPage = 4;
   const hasPrevious = postsPerPage * (page - 1) > 0;
   const hasNext = postsPerPage * (page - 1) + postsPerPage < count;
-  
+
+  if (posts.length === 0) {
+    return (
+      <div>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+          Recent Posts
+        </h2>
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">No posts available at the moment.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Title */}
@@ -116,7 +136,7 @@ const CardList: React.FC<CardListProps> = async ( {page, cate} ) => {
 
       {/* Pagination - Moved outside and reduced gap */}
       <div className="mt-2">
-        <Pagination page={page} hasPrevious={hasPrevious} hasNext={hasNext}/>
+        <Pagination page={page} hasPrevious={hasPrevious} hasNext={hasNext} />
       </div>
     </div>
   )

@@ -1,22 +1,41 @@
 import ClientMenuList from '@/components/MenuList.client'
 import type { Category, GetDataResponse } from '@/helpers/menuListTypes'
+import { getBaseUrl } from '@/lib/api';
 
 const getCategoriesWithCounts = async (): Promise<Category[]> => {
-  const res = await fetch('http://localhost:3000/api/category-with-counts', { cache: 'no-store' });
-  if (!res.ok) throw new Error('Failed to fetch categories with counts');
-  return res.json();
+  try {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/category-with-counts`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to fetch categories with counts: ${res.status}`);
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching categories with counts:', error);
+    return [];
+  }
 }
 
 const getCategoryData = async (): Promise<Category[]> => {
-  const res = await fetch('http://localhost:3000/api/category', { cache: 'no-store' });
-  if (!res.ok) throw new Error('Failed to fetch categories');
-  return res.json();
+  try {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/category`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`);
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching category data:', error);
+    return [];
+  }
 }
 
 const getPostsData = async (page: number, cate: string): Promise<GetDataResponse> => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}&cate=${cate || ''}`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Failed to fetch posts');
-  return res.json();
+  try {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ''}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to fetch posts: ${res.status}`);
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching posts data:', error);
+    return { posts: [], count: 0 };
+  }
 }
 
 export default async function MenuList() {
