@@ -36,7 +36,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ postSlug }) => {
   const [desc, setDesc] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   
-  const { data, mutate, isLoading, error } = useSWR(`http://localhost:3000/api/comments?postSlug=${postSlug}`, fetcher)
+  const { data, mutate, isLoading, error } = useSWR(`/api/comments?postSlug=${postSlug}`, fetcher)
   const comments = data || [];
 
   // Show error toast if comments failed to load

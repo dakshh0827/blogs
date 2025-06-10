@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Pagination from './Pagination'
-import { getBaseUrl } from '@/lib/api';
 
 // Define the Post interface based on your Prisma model
 interface Post {
@@ -38,8 +37,7 @@ interface GetDataResponse {
 
 const getData = async (page: number, cate: string): Promise<GetDataResponse> => {
   try {
-    const baseUrl = getBaseUrl();
-    const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ""}`, {
+    const res = await fetch(`/api/posts?page=${page}&cate=${cate || ""}`, {
       method: 'GET',
       cache: 'no-store'
     });
