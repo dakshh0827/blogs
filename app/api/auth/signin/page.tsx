@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { showSuccess, showError, showLoading, dismissToast } from '@/lib/toast'
+import Link from 'next/link'
 
 const SignInPage: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -155,9 +156,9 @@ const SignInPage: React.FC = () => {
 
         {/* Forgot Password / Sign Up */}
         <div className="flex justify-center items-center text-xs">
-          <a href="/api/auth/signup" className="text-primary hover:underline">
+          <Link href="/api/auth/signup" className="text-primary hover:underline">
             Don&apos;t have an account? Sign up
-          </a>
+          </Link>
         </div>
       </div>
     </div>

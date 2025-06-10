@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { showSuccess, showError, showLoading, dismissToast, showInfo } from '@/lib/toast'
+import Link from 'next/link'
 
 const SignUpPage: React.FC = () => {
   const [step, setStep] = useState<'register' | 'verify'>('register')
@@ -351,9 +352,9 @@ const SignUpPage: React.FC = () => {
 
         {/* Already have an account? */}
         <div className="flex justify-center items-center text-xs">
-          <a href="/api/auth/signin" className="text-primary hover:underline">
+          <Link href="/api/auth/signin" className="text-primary hover:underline">
             Already have an account? Sign in
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -10,9 +10,6 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: false,
   },
-  env: {
-    DEBUG: 'true',
-  },
 };
 
 export default nextConfig;
