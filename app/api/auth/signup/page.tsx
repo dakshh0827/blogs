@@ -162,7 +162,7 @@ const SignUpPage: React.FC = () => {
 
   const handleOAuthSignIn = (provider: string) => {
     showLoading(`Redirecting to ${provider}...`)
-    signIn(provider, { callbackUrl: '/dashboard' })
+    signIn(provider, { callbackUrl: '/' })
   }
 
   // Verification Step UI
