@@ -1,33 +1,42 @@
-import { getServerSession, NextAuthOptions, Session } from 'next-auth'
+// lib/auth.js
+import { getServerSession, NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
+import FacebookProvider from 'next-auth/providers/facebook'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from './prisma'
 import bcrypt from 'bcryptjs'
+
+import { DefaultSession, DefaultUser } from "next-auth"
 
 declare module "next-auth" {
   interface Session {
     user: {
       id: string
-      name?: string | null
-      email?: string | null
-      image?: string | null
-    }
+    } & DefaultSession["user"]
+  }
+  interface User extends DefaultUser {
+    id: string
   }
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  ...(process.env.NODE_ENV !== 'production' || process.env.DATABASE_URL ? {
+    adapter: PrismaAdapter(prisma)
+  } : {}),
   
   providers: [
     CredentialsProvider({
-      id: "credentials",
       name: 'credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
+        if (process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) {
+          return null
+        }
+
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Invalid credentials')
         }
@@ -70,61 +79,33 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      allowDangerousEmailAccountLinking: true,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code"
-        }
-      }
     }),
+
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    })
   ],
-
   session: {
-    strategy: 'database',
-    maxAge: 30 * 24 * 60 * 60,
+    strategy: 'jwt'
   },
-
   pages: {
     signIn: '/auth/signin',
   },
-
   callbacks: {
-    async signIn({ account }) {
-      if (account?.provider === "google") {
-        return true
-      }
-      
-      if (account?.provider === "credentials") {
-        return true
-      }
-      
-      return true
-    },
-
-    async session({ session, user }) {
-      if (user && session.user) {
-        session.user.id = user.id
-      }
-      return session
-    },
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
       }
       return token
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string
+      }
+      return session
     }
-  },
-
-  events: {
-    async linkAccount({ user, account }) {
-      console.log(`Account ${account.provider} linked to user ${user.id}`)
-    }
-  },
-
-  debug: process.env.NODE_ENV === 'development',
+  }
 }
 
 export const getAuthSession = () => getServerSession(authOptions)
