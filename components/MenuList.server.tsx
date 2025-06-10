@@ -5,7 +5,10 @@ import { getBaseUrl } from '@/lib/api';
 const getCategoriesWithCounts = async (): Promise<Category[]> => {
   try {
     const baseUrl = getBaseUrl();
-    const res = await fetch(`${baseUrl}/api/category-with-counts`, { cache: 'no-store' });
+    const res = await fetch(`${baseUrl}/api/category-with-counts`, { 
+      method: 'GET', 
+      cache: 'no-store' 
+    });
     if (!res.ok) throw new Error(`Failed to fetch categories with counts: ${res.status}`);
     return res.json();
   } catch (error) {
@@ -17,7 +20,10 @@ const getCategoriesWithCounts = async (): Promise<Category[]> => {
 const getCategoryData = async (): Promise<Category[]> => {
   try {
     const baseUrl = getBaseUrl();
-    const res = await fetch(`${baseUrl}/api/category`, { cache: 'no-store' });
+    const res = await fetch(`${baseUrl}/api/category`, { 
+      method: 'GET',
+      cache: 'no-store' 
+    });
     if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`);
     return res.json();
   } catch (error) {
@@ -29,7 +35,10 @@ const getCategoryData = async (): Promise<Category[]> => {
 const getPostsData = async (page: number, cate: string): Promise<GetDataResponse> => {
   try {
     const baseUrl = getBaseUrl();
-    const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ''}`, { cache: 'no-store' });
+    const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ''}`, { 
+      method: 'GET',
+      cache: 'no-store' 
+    });
     if (!res.ok) throw new Error(`Failed to fetch posts: ${res.status}`);
     return res.json();
   } catch (error) {

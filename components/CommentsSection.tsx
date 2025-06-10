@@ -12,7 +12,9 @@ interface CommentsSectionProps {
 }
 
 const fetcher = async (url: string) => {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      method: 'GET',
+    });
     const data = await res.json();
     if (!res.ok) {
         throw new Error(data.error || 'An error occurred while fetching comments');

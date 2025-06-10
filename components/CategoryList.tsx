@@ -14,6 +14,7 @@ const getData = async (): Promise<Category[]> => {
   try {
     const baseUrl = getBaseUrl();
     const res = await fetch(`${baseUrl}/api/category`, {
+      method: 'GET',
       cache: 'no-store',
     });
 

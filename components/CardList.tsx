@@ -40,6 +40,7 @@ const getData = async (page: number, cate: string): Promise<GetDataResponse> => 
   try {
     const baseUrl = getBaseUrl();
     const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ""}`, {
+      method: 'GET',
       cache: 'no-store'
     });
 
