@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://blogs-nine-lac.vercel.app',
+            value: 'https://blogs-1b1x.onrender.com',
           },
           {
             key: 'Access-Control-Allow-Methods',
