@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { getBaseUrl } from '@/lib/api';
 
 interface Category {
   id: string;
@@ -11,7 +12,8 @@ interface Category {
 
 const getData = async (): Promise<Category[]> => {
   try {
-    const res = await fetch(`/api/category`, {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/category`, {
       method: 'GET',
       cache: 'no-store',
     });

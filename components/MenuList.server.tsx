@@ -1,9 +1,11 @@
 import ClientMenuList from '@/components/MenuList.client'
 import type { Category, GetDataResponse } from '@/helpers/menuListTypes'
+import { getBaseUrl } from '@/lib/api';
 
 const getCategoriesWithCounts = async (): Promise<Category[]> => {
   try {
-    const res = await fetch(`/api/category-with-counts`, { 
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/category-with-counts`, { 
       method: 'GET', 
       cache: 'no-store' 
     });
@@ -17,7 +19,8 @@ const getCategoriesWithCounts = async (): Promise<Category[]> => {
 
 const getCategoryData = async (): Promise<Category[]> => {
   try {
-    const res = await fetch(`/api/category`, { 
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/category`, { 
       method: 'GET',
       cache: 'no-store' 
     });
@@ -31,7 +34,8 @@ const getCategoryData = async (): Promise<Category[]> => {
 
 const getPostsData = async (page: number, cate: string): Promise<GetDataResponse> => {
   try {
-    const res = await fetch(`/api/posts?page=${page}&cate=${cate || ''}`, { 
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/posts?page=${page}&cate=${cate || ''}`, { 
       method: 'GET',
       cache: 'no-store' 
     });
