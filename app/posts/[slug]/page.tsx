@@ -1,9 +1,11 @@
 import React from 'react'
 import PostPageTopContainer from '@/components/PostPageTopContainer'
 import PostPageBottomContainer from '@/components/PostPageBottomContainer'
+import { getBaseUrl } from '@/lib/api';
 
 const getData = async (slug: string) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/posts/${slug}`, {
     cache: 'no-store'
   });
 
