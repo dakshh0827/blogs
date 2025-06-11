@@ -2,6 +2,8 @@
 
 blogs is a public platform to create and discover blogs and articles. It features blog writing page, category based filtering and comments.
 
+Live Link: https://blogs-1b1x.onrender.com
+
 ## ✨ Features
 
 *   **Responsive Design**: Adapts to various screen sizes for a seamless experience on desktop and mobile devices.
